@@ -372,29 +372,30 @@ int cmd_abrir(const char *par){
         return 1;
     }
 
-    for (int i = 0; i < MAX_SALIDAS; i++){
 
-        if (sala->salidas[i].sala_buscada != -1 && sala->salidas[i].bloqueada == CERRADO){
+    int puerta_correcta = DIR_NORTE;
 
-            int destino = sala->salidas[i].sala_buscada;
-            sala->salidas[i].bloqueada = ABIERTO;
+    if (sala->salidas[puerta_correcta].sala_buscada != -1 && sala->salidas[puerta_correcta].bloqueada == CERRADO){
 
-            for (int j = 0; j < MAX_SALIDAS; j++){
+        int destino = sala->salidas[puerta_correcta].sala_buscada;
+        sala->salidas[puerta_correcta].bloqueada = ABIERTO;
 
-                if (mundo[destino].salidas[i].sala_buscada == jugador.esqueleto_entidad.ubicacion){
-                    mundo[destino].salidas[j].bloqueada = ABIERTO;
+        for (int j = 0; j < MAX_SALIDAS; j++){
 
-                    break;
-                }
+            if (mundo[destino].salidas[j].sala_buscada == jugador.esqueleto_entidad.ubicacion){
+                mundo[destino].salidas[j].bloqueada = ABIERTO;
+
+                break;
             }
-            printf(" ===[PUERTA DE LAS CELDAS: ABIERTA]===\n");
-
-            pausa();
-            cmd_mirar();
-
-            return 1;
         }
+        printf(" ===[PUERTA DE LAS CELDAS: ABIERTA]===\n");
+
+        pausa();
+        cmd_mirar();
+
+        return 1;
     }
+
     printf(" No hay ninguna puerta que puedas abrir en esta sala.\n");
 
     return 1;
@@ -950,6 +951,7 @@ int cmd_usar(const char *par){
             printf(" Rudigier pierde esa sonrisa burlona que tenia.. su arrogancia lo llevo a su perdicion...\n");
             npc[9].esqueleto_entidad.estado = E_MUERTO;
             printf(" [%s]: %s\n", npc[9].esqueleto_entidad.nombre, npc[9].frase_muerte);
+            mundo[11].salidas[DIR_ARRIBA].bloqueada = ABIERTO;
             printf(" ===[ASCENSOR: LIBERADO]===\n");
             remover_del_inventario(MOLOTOV);
 

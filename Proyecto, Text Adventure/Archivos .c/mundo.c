@@ -190,7 +190,7 @@ void inicializar_mundo(){
             [DIR_SUR] = {0},
             [DIR_ESTE] = {"salon de la Convergencia", 7, ABIERTO},
             [DIR_OESTE] = {0},
-            [DIR_ARRIBA]={"ascenso al area minera", 12, ABIERTO},
+            [DIR_ARRIBA]={"ascenso al area minera", 12, CERRADO},
             [DIR_ABAJO]={0}
         }
     };
